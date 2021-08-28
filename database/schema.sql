@@ -31,10 +31,24 @@ CREATE TABLE IF NOT EXISTS posts (
   recipient_id INT,
   reported BOOLEAN DEFAULT false,
   FOREIGN KEY (user_id)
-    REFERENCES profile(id)
+    REFERENCES profile(id),
   FOREIGN KEY (recipient_id)
     REFERENCES profile(id)
 );
 
-
+CREATE TABLE IF NOT EXISTS comments (
+  id SERIAL PRIMARY KEY,
+  post_id INT NOT NULL,
+  donor_id INT NOT NULL,
+  recipient_id INT NOT NULL,
+  body VARCHAR(255),
+  date BIGINT NOT NULL,
+  reported BOOLEAN DEFAULT false,
+  FOREIGN KEY (post_id)
+    REFERENCES posts(id),
+  FOREIGN KEY (recipient_id)
+    REFERENCES profile(id),
+  FOREIGN KEY (donor_id)
+    REFERENCES profile(id)
+);
 
