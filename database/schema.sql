@@ -1,3 +1,5 @@
+/*INSERT INTO profile (...) VALUES (...);*/
+
 CREATE TABLE IF NOT EXISTS profile (
   id SERIAL PRIMARY KEY,
   firstName VARCHAR(50) NOT NULL,
