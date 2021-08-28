@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS profile (
   homePhone INT,
   mobile INT,
   fax INT,
+  preferredContact INT DEFAULT 0,
   city VARCHAR(75) NOT NULL,
   state VARCHAR(5) NOT NULL,
   zip INT,
