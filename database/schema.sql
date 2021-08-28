@@ -15,3 +15,26 @@ CREATE TABLE IF NOT EXISTS profile (
   role INT NOT NULL,
   organization VARCHAR(255)
 );
+
+CREATE TABLE IF NOT EXISTS posts (
+  id SERIAL PRIMARY KEY,
+  user_id INT NOT NULL,
+  requestType INT NOT NULL,
+  category VARCHAR(30) NOT NULL,
+  title VARCHAR(50) NOT NULL,
+  body VARCHAR(255),
+  date BIGINT NOT NULL,
+  city VARCHAR(50),
+  state VARCHAR(5),
+  photo VARCHAR(255),
+  completed BOOLEAN,
+  recipient_id INT,
+  reported BOOLEAN DEFAULT false,
+  FOREIGN KEY (user_id)
+    REFERENCES profile(id)
+  FOREIGN KEY (recipient_id)
+    REFERENCES profile(id)
+);
+
+
+
