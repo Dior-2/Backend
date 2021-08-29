@@ -5,7 +5,7 @@
   "main": "config.example.js",
   "scripts": {
     "server": "nodemon server/index.js",
-    "database": "sudo -u postgres psql < database.schema.sql",
+    "database": "sudo -u postgres psql < database/schema.sql",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
