@@ -4,8 +4,8 @@ module.exports = {
   offers: async (req, res) => {
     try {
       let data = await get.offers(req.query);
-      res.send(data)
-      // res.status(200).json(data);
+      // res.send(data)
+      res.status(200).json(data);
     } catch(err) {
       console.log(err);
       res.status(400).send(err);
