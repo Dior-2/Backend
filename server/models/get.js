@@ -8,7 +8,7 @@ module.exports = {
           p.id,
           p.title,
           p.body,
-          p.date,
+          p.date AS timestamp,
           p.category,
           profile.username
         FROM posts AS p
@@ -34,8 +34,9 @@ module.exports = {
       return err;
     }
   },
-  comments: async (req, res) => {
+  test: async (req, res) => {
     try {
+      res.send('working?!')
 
     } catch(err) {
       console.log(err);
