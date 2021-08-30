@@ -12,10 +12,13 @@ module.exports = {
           p.category,
           profile.username
         FROM posts AS p
-        INNER JOIN profile.id = p.user_id
+        INNER JOIN profile
+        ON profile.id = p.user_id
         WHERE p.category =$1
+        AND p.requestType = 1
+        ORDER BY p.date
         LIMIT $2
-        ORDER BY p.date`, [category, limit]);
+        `, [category, limit]);
       return results;
     } catch(err) {
       console.log(err);
