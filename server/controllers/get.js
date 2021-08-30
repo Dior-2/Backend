@@ -12,6 +12,15 @@ module.exports = {
       //refactor to 'throw error'
     }
   },
+  profile: async (req, res) => {
+    try {
+      let data = await get.profile(req.query);
+      res.send(data)
+    } catch(err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
   requests: async (req, res) => {
 
     try {
