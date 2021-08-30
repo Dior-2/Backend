@@ -6,7 +6,6 @@ const compression = require('compression');
 const morgan = require('morgan');
 const db = require('../database/index.js'); // is this necessary?
 const router = require('./routes.js');
-
 app.use(express.json());
 app.use(compression());
 app.use(morgan('tiny'));

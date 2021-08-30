@@ -1,18 +1,21 @@
 const { get } = require('../models');
 
 module.exports = {
-  profile: async (req, res) => {
+  offers: async (req, res) => {
     try {
-      let data = await get.profile(req.query);
-      res.status(200).json(data);
+      let data = await get.offers(req.query);
+      res.send(data)
+      // res.status(200).json(data);
     } catch(err) {
       console.log(err);
       res.status(400).send(err);
+      //refactor to 'throw error'
     }
   },
-  posts: async (req, res) => {
+  requests: async (req, res) => {
+
     try {
-      let data = await get.posts(req.query);
+      let data = await get.requests(req.query);
       res.status(200).json(data);
     } catch(err) {
       console.log(err);
