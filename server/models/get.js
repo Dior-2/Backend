@@ -58,22 +58,32 @@ module.exports = {
       return err;
     }
   },
-  requests: async (req, res) => {
-    try {
-      let results = await db.query('SELECT * FROM posts WHERE user_id=(SELECT id FROM profile WHERE ');
-      return results
-    } catch(err) {
-      console.log(err);
-      return err;
-    }
-  },
-  test: async (req, res) => {
-    try {
-      res.send('working?!')
+  // comments: async ({ post_id }) => {
+  //   // handle optional username, if (!username) vs CASE query
+  //   try {
+  //     let results = await.db.query(`SELECT id, username, body, date AS timestamp FROM comments WHERE post_id=$1`, [post_id]);
+  //     return results;
+  //   } catch(err) {
+  //     console.log(err);
+  //     return err;
+  //   }
+  // },
+  // requests: async (req, res) => {
+  //   try {
+  //     let results = await db.query('SELECT * FROM posts WHERE user_id=(SELECT id FROM profile WHERE ');
+  //     return results
+  //   } catch(err) {
+  //     console.log(err);
+  //     return err;
+  //   }
+  // },
+  // test: async (req, res) => {
+  //   try {
+  //     res.send('working?!')
 
-    } catch(err) {
-      console.log(err);
-      return err;
-    }
-  }
+  //   } catch(err) {
+  //     console.log(err);
+  //     return err;
+  //   }
+  // }
 }
