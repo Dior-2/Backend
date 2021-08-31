@@ -49,9 +49,9 @@ module.exports = {
       }
     }
   },
-  profile: async ({ username }) => {
+  profile: async ({ email }) => {
     try {
-      let results = await db.query(`SELECT * FROM profile WHERE userName=$1`, [username]);
+      let results = await db.query(`SELECT * FROM profile WHERE email=$1`, [email]);
       return results;
     } catch(err) {
       console.log(err);

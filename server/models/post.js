@@ -1,9 +1,9 @@
 const db = require('../../database');
 
 module.exports = {
-  requests: async({ username, title, body, category }) => {
+  requests: async({ email, title, body, category }) => {
     try {
-      let result = await db.none(`INSERT INTO posts(id, user_id, requestType, category, title, body, date) VALUES ((SELECT MAX(id) FROM posts) + 1, (SELECT id FROM profile WHERE userName=$1), 0, $2, $3, $4, $5)`, [username, category, title, body, Date.now()]); // need to handle auto-increment id issue
+      let result = await db.none(`INSERT INTO posts(id, user_id, requestType, category, title, body, date) VALUES ((SELECT MAX(id) FROM posts) + 1, (SELECT id FROM profile WHERE email=$1), 0, $2, $3, $4, $5)`, [email, category, title, body, Date.now()]); // need to handle auto-increment id issue
       return 'Post Successful';
     } catch(err) {
       console.log(err);
@@ -20,7 +20,7 @@ module.exports = {
     }
   },
 
-  offers: async ({userName, title, body, category}) => {
+  offers: async ({email, title, body, category}) => {
     try {
       let result = await db.none(
         `INSERT INTO
@@ -42,11 +42,11 @@ module.exports = {
           FROM
           profile
           WHERE
-          userName=$1
+          email=$1
           ),
           1, $2, $3, $4, $5
           )`,
-            [userName, title, body, category, Date.now()]
+            [email, title, body, category, Date.now()]
           );
       return 'Much Success on Post!';
     } catch(err) {

@@ -59,7 +59,7 @@ sorted by username, most recent
 POST api/listings/offers
 ```
 {
-  username
+  email
   title
   body
   category
@@ -110,7 +110,7 @@ sort by username and most recent
 POST api/listings/requests
 ```
 {
-  username
+  email
   title
   body
   category
@@ -130,7 +130,7 @@ POST api/listings/requests/comment
 
 ### PROFILE
 
-GET api/profile/:email*
+GET api/profile/:email
 ```
 [{
   id
