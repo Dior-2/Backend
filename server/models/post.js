@@ -1,9 +1,9 @@
 const db = require('../../database');
 
 module.exports = {
-  requests: async({ username, title, body, category }) => {
+  requests: async({ email, title, body, category }) => {
     try {
-      let result = await db.none(`INSERT INTO posts(id, user_id, requestType, category, title, body, date) VALUES ((SELECT MAX(id) FROM posts) + 1, (SELECT id FROM profile WHERE userName=$1), $2, $3, $4, $5, $6)`, [username, 0, category, title, body, Date.now()]); // need to handle auto-increment id issue
+      let result = await db.none(`INSERT INTO posts(id, user_id, requestType, category, title, body, date) VALUES ((SELECT MAX(id) FROM posts) + 1, (SELECT id FROM profile WHERE email=$1), 0, $2, $3, $4, $5)`, [email, category, title, body, Date.now()]); // need to handle auto-increment id issue
       return 'Post Successful';
     } catch(err) {
       console.log(err);
@@ -11,9 +11,8 @@ module.exports = {
     }
   },
   profile: async({ firstName, lastName, userName, email, homePhone, mobile, fax, preferredContact, city, state, zip, address1, address2, role, organization }) => {
-    debugger;
     try {
-      let result = await db.none(`INSERT INTO profile(id, firstName, lastName, userName, email, mobile, fax, preferredContact, city, state, zip, address1, address2, role, organization) VALUES ((SELECT MAX(id) FROM profile) + 1, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`, [firstName, lastName, userName, email, mobile, fax, preferredContact, city, state, zip, address1, address2, role, organization]);
+      let result = await db.none(`INSERT INTO profile(id, firstName, lastName, userName, email, mobile, preferredContact, city, state, zip, address1, address2, role, organization) VALUES ((SELECT MAX(id) FROM profile) + 1, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`, [firstName, lastName, userName, email, mobile, preferredContact, city, state, zip, address1, address2, role, organization]);
       return 'Post Successful';
     } catch(err) {
       console.log(err);
@@ -21,7 +20,7 @@ module.exports = {
     }
   },
 
-  offers: async ({userName, title, body, category}) => {
+  offers: async ({email, title, body, category}) => {
     try {
       let result = await db.none(
         `INSERT INTO
@@ -43,11 +42,11 @@ module.exports = {
           FROM
           profile
           WHERE
-          userName=$1
+          email=$1
           ),
           1, $2, $3, $4, $5
           )`,
-            [userName, title, body, category, Date.now()]
+            [email, title, body, category, Date.now()]
           );
       return 'Much Success on Post!';
     } catch(err) {
