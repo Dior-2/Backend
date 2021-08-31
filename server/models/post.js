@@ -20,6 +20,40 @@ module.exports = {
       return err;
     }
   },
+
+  offers: async ({userName, title, body, category}) => {
+    try {
+      let result = await db.none(
+        `INSERT INTO
+        posts (
+          id,
+          user_id,
+          requestType,
+          category,
+          title,
+          body,
+          date
+          )
+          VALUES (
+          (SELECT MAX(id)
+          FROM posts)
+          + 1,
+          (SELECT
+          id
+          FROM
+          profile
+          WHERE
+          userName=$1
+          ),
+          1, $2, $3, $4, $5
+          )`,
+            [userName, title, body, category, Date.now()]
+          );
+      return 'Much Success on Post!';
+    } catch(err) {
+      return err;
+    }
+  }
   // comment: async ({ post_id, username, body }) => {
   //   try {
   //     let result = await db.none(`INSERT INTO comments (post_id, donor_id, recipient_id, body)`, [post_id, </donor_id> , </recipient_id>, username, body, Date.now()]);
