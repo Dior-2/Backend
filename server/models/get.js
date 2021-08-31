@@ -58,16 +58,6 @@ module.exports = {
       return err;
     }
   },
-  // comments: async ({ post_id }) => {
-  //   // handle optional username, if (!username) vs CASE query
-  //   try {
-  //     let results = await.db.query(`SELECT id, username, body, date AS timestamp FROM comments WHERE post_id=$1`, [post_id]);
-  //     return results;
-  //   } catch(err) {
-  //     console.log(err);
-  //     return err;
-  //   }
-  // },
   requests: async ({limit, category}) => {
     if (!category) {
       try {
@@ -116,13 +106,4 @@ module.exports = {
       }
     }
   }
-  // test: async (req, res) => {
-  //   try {
-  //     res.send('working?!')
-
-  //   } catch(err) {
-  //     console.log(err);
-  //     return err;
-  //   }
-  // }
 }
