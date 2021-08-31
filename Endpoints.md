@@ -17,7 +17,10 @@ server side key-value pairs deconstruct under req.query
 POST
 ```
 axios.post('/endpoint', {
-  body?
+  data: {
+    key: value,
+    key: value
+  }
 })
 ```
 server side key-value pairs deconstruct under req.body?
@@ -53,10 +56,10 @@ GET api/listings/offers/comments/:post_id
 sorted by username, most recent
 
 ---
-POST api/listings/offers/post
+POST api/listings/offers
 ```
 {
-  username
+  email
   title
   body
   category
@@ -104,10 +107,10 @@ GET api/listings/requests/comments/:post_id
 sort by username and most recent
 
 ---
-POST api/listings/requests/post
+POST api/listings/requests
 ```
 {
-  username
+  email
   title
   body
   category
@@ -127,7 +130,7 @@ POST api/listings/requests/comment
 
 ### PROFILE
 
-GET api/profile/:username
+GET api/profile/:email
 ```
 [{
   id
@@ -137,7 +140,6 @@ GET api/profile/:username
   email
   homePhone
   mobile
-  fax
   preferredContact
   city
   state
@@ -148,12 +150,24 @@ GET api/profile/:username
   organization
 }]
 ```
+---
+POST api/profile
+```
+{
+  same as above, see database/schema.sql for data types
+}
+```
+
 
 ---
 
-PUT api/profile/:username
+PUT api/profile/:email
 ```
 {
-  everything from above
+  "ogEmail": even if it's not changing and therefor in the object twice
+  .
+  .
+  .
+  same as above
 }
 ```
