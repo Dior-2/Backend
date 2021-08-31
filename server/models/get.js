@@ -51,7 +51,7 @@ module.exports = {
   },
   profile: async ({ username }) => {
     try {
-      let results = await db.query(`SELECT * FROM posts WHERE userName=$1`, [username]);
+      let results = await db.query(`SELECT * FROM profile WHERE userName=$1`, [username]);
       return results;
     } catch(err) {
       console.log(err);
