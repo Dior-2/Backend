@@ -130,7 +130,7 @@ POST api/listings/requests/comment
 
 ### PROFILE
 
-GET api/profile/:username
+GET api/profile/:email*
 ```
 [{
   id
@@ -161,9 +161,13 @@ POST api/profile
 
 ---
 
-PUT api/profile/:username
+PUT api/profile/:email
 ```
 {
-  samesies
+  "ogEmail": even if it's not changing and therefor in the object twice
+  .
+  .
+  .
+  same as above
 }
 ```
