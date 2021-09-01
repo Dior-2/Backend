@@ -167,3 +167,12 @@ PUT api/profile
   same as above (id not needed)
 }
 ```
+ ---
+### CHECK
+
+GET /api/check
+```
+{
+  count?
+}
+```
