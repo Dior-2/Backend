@@ -151,7 +151,7 @@ POST api/profile
 PUT api/profile/:email
 ```
 {
-  "ogemail": even if it's not changing and therefor in the object twice
+  "ogemail": current email, include even if it's not changing and therefor in the object twice. "email" will be new email or still the same
   .
   .
   .
