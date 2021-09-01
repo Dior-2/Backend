@@ -134,6 +134,7 @@ GET api/profile/:email
 ```
 [{
   id
+  firebase_id
   firstName
   lastName
   userName
