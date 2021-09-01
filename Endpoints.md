@@ -1,5 +1,8 @@
 # Endpoints
 
+## IMPORTANT
+For deconstructing correctly on both front and back-end, all parameter names should be lowercase. Reference schema.sql for data types, but don't copy their capitalization
+
 ## Structure of HTTP request
 GET
 ```
@@ -70,7 +73,7 @@ GET api/listings/requests/:limit/:category
 ```
 sorted by most recent
 
-climit and category optional
+limit and category optional
 
 ---
 
@@ -90,11 +93,11 @@ POST api/listings/requests
 GET api/comments/:post_id/:thread_id
 ```
 [
-  [{ id, username, body, post_id, timestamp }, {...}],
+  [{ id, username, body, post_id, thread_id, timestamp }, {...}],
   [{...}, {...}]
 ]
 ```
-grouped by username
+grouped by thread_id
 
 post_id mandatory
 
@@ -119,13 +122,13 @@ GET api/profile/:email
 [{
   id
   firebase_id
-  firstName
-  lastName
-  userName
+  firstname
+  lastname
+  username
   email
-  homePhone
+  homephone
   mobile
-  preferredContact
+  preferredcontact
   city
   state
   zip
@@ -148,7 +151,7 @@ POST api/profile
 PUT api/profile/:email
 ```
 {
-  "ogEmail": even if it's not changing and therefor in the object twice
+  "ogemail": even if it's not changing and therefor in the object twice
   .
   .
   .

@@ -105,5 +105,28 @@ module.exports = {
           return err;
       }
     }
-  }
+  },
+  comments: async({ post_id, thread_id }) => {
+    try {
+      let results = await db.query(`SELECT username, body, post_id, thread_id, date FROM comments WHERE post_id=$1`, [post_id, thread_id]);
+      return results;
+    } catch(err) {
+      console.log(err);
+      return err;
+    }
+  },
+  // comments: async({ post_id, thread_id }) => {
+  //   try {
+  //     let results = await db.query(`SELECT json_agg(json_build_obj(
+  //       'username', username,
+  //       'body', body,
+  //       'post_id', post_id,
+  //       'thread_id', thread_id,
+  //       'date', date)) FROM comments WHERE post_id=$1 GROUP BY thread_id=$2`, [post_id, thread_id]);
+  //     return results;
+  //   } catch(err) {
+  //     console.log(err);
+  //     return err;
+  //   }
+  // },
 }
