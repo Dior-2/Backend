@@ -19,6 +19,10 @@ CREATE TABLE IF NOT EXISTS profile (
   organization VARCHAR(255)
 );
 
+CREATE INDEX profile_get ON profile (email) INCLUDE
+(id, firebase_id, firstName, lastName, userName, email, homePhone,
+mobile, preferredContact, city, state, zip, address1, address2, role, organization);
+
 CREATE TABLE IF NOT EXISTS posts (
   id SERIAL PRIMARY KEY,
   user_id INT NOT NULL,
@@ -30,13 +34,17 @@ CREATE TABLE IF NOT EXISTS posts (
   city VARCHAR(50),
   state VARCHAR(5),
   photo VARCHAR(255),
-  completed BOOLEAN,
+  completed BOOLEAN DEFAULT false,
   recipient_id INT,
   reported BOOLEAN DEFAULT false,
   FOREIGN KEY (user_id)
     REFERENCES profile(id),
   FOREIGN KEY (recipient_id)
     REFERENCES profile(id)
+);
+
+CREATE INDEX posts_get ON posts(category) INCLUDE (
+  id, title, body, user_id, date
 );
 
 CREATE TABLE IF NOT EXISTS comments (
@@ -50,3 +58,8 @@ CREATE TABLE IF NOT EXISTS comments (
   FOREIGN KEY (post_id)
     REFERENCES posts(id)
 );
+
+CREATE INDEX comments_get ON comments(post_id) INCLUDE (
+  id, username, body, thread_id, date
+);
+
