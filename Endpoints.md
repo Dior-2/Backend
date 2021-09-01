@@ -90,7 +90,7 @@ POST api/listings/requests
 ---
 ### COMMENTS: GET AND POST
 
-GET api/comments/:post_id/:thread_id
+GET api/comments/:post_id
 ```
 [
   [{ id, username, body, post_id, thread_id, timestamp }, {...}],
@@ -100,8 +100,6 @@ GET api/comments/:post_id/:thread_id
 grouped by thread_id
 
 post_id mandatory
-
-if no thread_id is passed, comment is assumed to be on original post, and one will be assigned
 
 ---
 POST api/listings/requests/comments
@@ -113,6 +111,8 @@ POST api/listings/requests/comments
   body
 }
 ```
+if no thread_id is passed, comment is assumed to be on original post, and new one will be assigned
+
 ---
 
 ### PROFILE: GET, POST, AND PUT

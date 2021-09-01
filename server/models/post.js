@@ -56,7 +56,6 @@ module.exports = {
   comments: async ({ post_id, thread_id, email, body }) => {
     try {
       if ( !thread_id ) {
-        debugger;
         [{ max }] = await db.query(`SELECT MAX(thread_id) FROM comments`);
         thread_id = parseInt(max);
         thread_id += 1;
@@ -71,7 +70,7 @@ module.exports = {
          $4,
          $5
          )`,
-         [email, post_id, parseInt(thread_id), body, Date.now()]
+         [email, post_id, parseInt(thread_id), body, parseInt(Date.now())]
       );
       return 'Much Success, Very Nice';
     } catch(err) {
