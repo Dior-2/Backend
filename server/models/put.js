@@ -1,7 +1,7 @@
 const db = require('../../database');
 
 module.exports = {
-  profile: async({ ogEmail, firstName, lastName, userName, email, homePhone, mobile, fax, preferredContact, city, state, zip, address1, address2, role, organization }) => {
+  profile: async({ ogEmail, firstName, lastName, userName, email, homePhone, mobile, preferredContact, city, state, zip, address1, address2, role, organization }) => {
     try {
       let result = await db.none(`
       UPDATE profile
