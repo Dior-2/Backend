@@ -23,10 +23,10 @@ axios.post('/endpoint', {
   }
 })
 ```
-server side key-value pairs deconstruct under req.body?
+server side key-value pairs deconstruct under req.body
 
 ---
-### OFFERS
+### OFFERS: GET AND POST
 
 GET api/listings/offers/:limit/:category
 ```
@@ -41,19 +41,7 @@ GET api/listings/offers/:limit/:category
 ```
 sorted by most recent
 
----
-
-GET api/listings/offers/comments/:post_id
-```
-[{
-  id
-  username
-  body
-  post_id
-  timestamp
-}];
-```
-sorted by username, most recent
+category optional
 
 ---
 POST api/listings/offers
@@ -67,17 +55,7 @@ POST api/listings/offers
 ```
 ---
 
-POST api/listings/offers/comment
-```
-{
-  post_id
-  username
-  body
-};
-```
----
-
-### REQUESTS
+### REQUESTS: GET AND POST
 
 GET api/listings/requests/:limit/:category
 ```
@@ -90,23 +68,12 @@ GET api/listings/requests/:limit/:category
   category
 }]
 ```
-sort by most recent
+sorted by most recent
+
+category is optional
 
 ---
-GET api/listings/requests/comments/:post_id
-```
-[{
-  id
-  username
-  body
-  post_id
-  timestamp
-}]
-```
 
-sort by username and most recent
-
----
 POST api/listings/requests
 ```
 {
@@ -116,6 +83,20 @@ POST api/listings/requests
   category
 }
 ```
+
+---
+### COMMENTS: GET AND POST
+
+GET api/comments/:post_id/:thread_id
+```
+[
+  [{ id, username, body, post_id, timestamp }, {...}],
+  [{...}, {...}]
+]
+```
+grouped by username
+
+if no thread_id is passed, comment is assumed to be on original post, and one will be assigned
 
 ---
 POST api/listings/requests/comment
@@ -128,7 +109,7 @@ POST api/listings/requests/comment
 ```
 ---
 
-### PROFILE
+### PROFILE: GET, POST, AND PUT
 
 GET api/profile/:email
 ```
@@ -158,7 +139,6 @@ POST api/profile
   same as above, see database/schema.sql for data types
 }
 ```
-
 
 ---
 

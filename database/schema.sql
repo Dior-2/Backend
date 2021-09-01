@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS profile (
   lastName VARCHAR(50) NOT NULL,
   userName VARCHAR(50) UNIQUE NOT NULL,
   email VARCHAR(75) UNIQUE NOT NULL,
-  homePhone BIGINT,
+  homePhone BIG`INT,
   mobile BIGINT,
   preferredContact INT DEFAULT 0,
   city VARCHAR(75) NOT NULL,
@@ -42,16 +42,10 @@ CREATE TABLE IF NOT EXISTS posts (
 CREATE TABLE IF NOT EXISTS comments (
   id SERIAL PRIMARY KEY,
   post_id INT NOT NULL,
-  donor_id INT NOT NULL,
-  recipient_id INT NOT NULL,
+  thread_id INT,
   body VARCHAR(255),
   date BIGINT NOT NULL,
   reported BOOLEAN DEFAULT false,
   FOREIGN KEY (post_id)
-    REFERENCES posts(id),
-  FOREIGN KEY (recipient_id)
-    REFERENCES profile(id),
-  FOREIGN KEY (donor_id)
-    REFERENCES profile(id)
+    REFERENCES posts(id)
 );
-
