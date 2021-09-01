@@ -105,5 +105,14 @@ module.exports = {
           return err;
       }
     }
-  }
+  },
+  comments: async({ post_id, thread_id }) => {
+    try {
+      let results = await db.query(`SELECT json_agg(userName, body, post_id, thread_id, date AS timestamp) FROM comments LEFT JOIN profile ON email WHERE post_id=$1 GROUP BY thread_id=$2`, [post_id, thread_id]);
+      return results;
+    } catch(err) {
+      console.log(err);
+      return err;
+    }
+  },
 }
