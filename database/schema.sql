@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS posts (
 
 CREATE TABLE IF NOT EXISTS comments (
   id SERIAL PRIMARY KEY,
+  userName VARCHAR(50),
   post_id INT NOT NULL,
   thread_id INT,
   body VARCHAR(255),
