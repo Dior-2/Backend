@@ -1,7 +1,7 @@
 const db = require('../../database');
 
 module.exports = {
-  profile: async({ ogEmail, firebase_id, firstName, lastName, userName, email, homePhone, mobile, preferredContact, city, state, zip, address1, address2, role, organization }) => {
+  profile: async({ ogemail, firebase_id, firstName, lastName, userName, email, homePhone, mobile, preferredContact, city, state, zip, address1, address2, role, organization }) => {
     try {
       let result = await db.none(`
       UPDATE profile
@@ -20,7 +20,7 @@ module.exports = {
         address2=$12,
         role=$13,
         organization=$14
-        WHERE email=$15`, [firebase_id, firstName, lastName, userName, email, mobile, preferredContact, city, state, zip, address1, address2, role, organization, ogEmail]);
+        WHERE email=$15`, [firebase_id, firstName, lastName, userName, email, mobile, preferredContact, city, state, zip, address1, address2, role, organization, ogemail]);
       return 'Post Successful';
     } catch(err) {
       console.log(err);
