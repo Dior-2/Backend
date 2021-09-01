@@ -21,15 +21,15 @@ module.exports = {
       res.status(400).send(err);
     }
   },
-  // comments: async (req, res) => {
-  //   try {
-  //     let data = await get.comments(req.query);
-  //     res.send(data)
-  //   } catch(err) {
-  //     console.log(err);
-  //     res.status(400).send(err)
-  //   }
-  // },
+  comments: async (req, res) => {
+    try {
+      let data = await get.comments(req.query);
+      res.send(data)
+    } catch(err) {
+      console.log(err);
+      res.status(400).send(err)
+    }
+  },
   requests: async (req, res) => {
     try {
       let data = await get.requests(req.query);

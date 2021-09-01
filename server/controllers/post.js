@@ -29,13 +29,13 @@ module.exports = {
       res.status(400).send(err);
     }
   },
-  // comment: async (req, res) => {
-  //   try {
-  //     let data = await post.comment(req.body) // not req.query right?
-  //     res.send(data)
-  //   } catch(err) {
-  //     console.log(err);
-  //     res.status(400).send(err)
-  //   }
-  // },
+  comments: async (req, res) => {
+    try {
+      let data = await post.comments(req.body);
+      res.send(data);
+    } catch(err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
 }

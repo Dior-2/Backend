@@ -41,17 +41,12 @@ CREATE TABLE IF NOT EXISTS posts (
 
 CREATE TABLE IF NOT EXISTS comments (
   id SERIAL PRIMARY KEY,
+  userName VARCHAR(50),
   post_id INT NOT NULL,
-  donor_id INT NOT NULL,
-  recipient_id INT NOT NULL,
+  thread_id INT,
   body VARCHAR(255),
   date BIGINT NOT NULL,
   reported BOOLEAN DEFAULT false,
   FOREIGN KEY (post_id)
-    REFERENCES posts(id),
-  FOREIGN KEY (recipient_id)
-    REFERENCES profile(id),
-  FOREIGN KEY (donor_id)
-    REFERENCES profile(id)
+    REFERENCES posts(id)
 );
-

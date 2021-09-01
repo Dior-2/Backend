@@ -1,5 +1,8 @@
 # Endpoints
 
+## IMPORTANT
+For deconstructing correctly on both front and back-end, all parameter names should be lowercase. Reference schema.sql for data types, but don't copy their capitalization
+
 ## Structure of HTTP request
 GET
 ```
@@ -23,10 +26,10 @@ axios.post('/endpoint', {
   }
 })
 ```
-server side key-value pairs deconstruct under req.body?
+server side key-value pairs deconstruct under req.body
 
 ---
-### OFFERS
+### OFFERS: GET AND POST
 
 GET api/listings/offers/:limit/:category
 ```
@@ -41,19 +44,7 @@ GET api/listings/offers/:limit/:category
 ```
 sorted by most recent
 
----
-
-GET api/listings/offers/comments/:post_id
-```
-[{
-  id
-  username
-  body
-  post_id
-  timestamp
-}];
-```
-sorted by username, most recent
+limit and category optional
 
 ---
 POST api/listings/offers
@@ -67,17 +58,7 @@ POST api/listings/offers
 ```
 ---
 
-POST api/listings/offers/comment
-```
-{
-  post_id
-  username
-  body
-};
-```
----
-
-### REQUESTS
+### REQUESTS: GET AND POST
 
 GET api/listings/requests/:limit/:category
 ```
@@ -90,23 +71,12 @@ GET api/listings/requests/:limit/:category
   category
 }]
 ```
-sort by most recent
+sorted by most recent
+
+limit and category optional
 
 ---
-GET api/listings/requests/comments/:post_id
-```
-[{
-  id
-  username
-  body
-  post_id
-  timestamp
-}]
-```
 
-sort by username and most recent
-
----
 POST api/listings/requests
 ```
 {
@@ -118,30 +88,47 @@ POST api/listings/requests
 ```
 
 ---
-POST api/listings/requests/comment
+### COMMENTS: GET AND POST
+
+GET api/comments/:post_id
+```
+[
+  [{ id, username, body, post_id, thread_id, timestamp }, {...}],
+  [{...}, {...}]
+]
+```
+grouped by thread_id
+
+post_id mandatory
+
+---
+POST api/listings/requests/comments
 ```
 {
   post_id
-  username
+  thread_id
+  email
   body
 }
 ```
+if no thread_id is passed, comment is assumed to be on original post, and new one will be assigned
+
 ---
 
-### PROFILE
+### PROFILE: GET, POST, AND PUT
 
 GET api/profile/:email
 ```
 [{
   id
   firebase_id
-  firstName
-  lastName
-  userName
+  firstname
+  lastname
+  username
   email
-  homePhone
+  homephone
   mobile
-  preferredContact
+  preferredcontact
   city
   state
   zip
@@ -159,13 +146,12 @@ POST api/profile
 }
 ```
 
-
 ---
 
 PUT api/profile/:email
 ```
 {
-  "ogEmail": even if it's not changing and therefor in the object twice
+  "ogemail": current email, include even if it's not changing and therefor in the object twice. "email" will be new email or still the same
   .
   .
   .
