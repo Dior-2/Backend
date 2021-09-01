@@ -128,13 +128,13 @@ GET api/profile/:email
   email
   homephone
   mobile
-  preferredcontact
+  preferredcontact -> 0=email, 1=homephone, 2=mobile
   city
   state
   zip
   address1
   address2
-  role
+  role -> 0=recipient, 1=donor
   organization
 }]
 ```
@@ -143,18 +143,19 @@ POST api/profile
 ```
 {
   same as above, see database/schema.sql for data types
+  (id not needed)
 }
 ```
 
 ---
 
-PUT api/profile/:email
+PUT api/profile
 ```
 {
   "ogemail": current email, include even if it's not changing and therefor in the object twice. "email" will be new email or still the same
   .
   .
   .
-  same as above
+  same as above (id not needed)
 }
 ```
