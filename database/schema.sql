@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS posts (
   city VARCHAR(50),
   state VARCHAR(5),
   photo VARCHAR(255),
-  completed BOOLEAN,
+  completed BOOLEAN DEFAULT false,
   recipient_id INT,
   reported BOOLEAN DEFAULT false,
   FOREIGN KEY (user_id)
