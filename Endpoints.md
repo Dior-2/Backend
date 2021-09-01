@@ -29,6 +29,14 @@ axios.post('/endpoint', {
 server side key-value pairs deconstruct under req.body
 
 ---
+
+### CATEGORY OPTIONS
+- housing
+- food
+- bills
+- homegoods
+
+---
 ### OFFERS: GET AND POST
 
 GET api/listings/offers/:limit/:category
