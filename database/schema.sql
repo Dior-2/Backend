@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS profile (
   lastName VARCHAR(50) NOT NULL,
   userName VARCHAR(50) UNIQUE NOT NULL,
   email VARCHAR(75) UNIQUE NOT NULL,
-  homePhone BIG`INT,
+  homePhone BIGINT,
   mobile BIGINT,
   preferredContact INT DEFAULT 0,
   city VARCHAR(75) NOT NULL,

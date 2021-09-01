@@ -41,7 +41,7 @@ GET api/listings/offers/:limit/:category
 ```
 sorted by most recent
 
-category optional
+limit and category optional
 
 ---
 POST api/listings/offers
@@ -70,7 +70,7 @@ GET api/listings/requests/:limit/:category
 ```
 sorted by most recent
 
-category is optional
+climit and category optional
 
 ---
 
@@ -95,6 +95,8 @@ GET api/comments/:post_id/:thread_id
 ]
 ```
 grouped by username
+
+post_id mandatory
 
 if no thread_id is passed, comment is assumed to be on original post, and one will be assigned
 
