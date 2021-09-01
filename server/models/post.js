@@ -52,14 +52,48 @@ module.exports = {
     } catch(err) {
       return err;
     }
-  }
-  // comment: async ({ post_id, username, body }) => {
+  },
+  comments: async ({ post_id, thread_id, email, body }) => {
+    try {
+      if ( !thread_id ) thread_id = await db.query(`SELECT MAX(thread_id) FROM comments`);
+      let result = await db.none(
+        `INSERT INTO comments
+         (userName, post_id, thread_id, body, date)
+         VALUES
+         ((SELECT username FROM profile WHERE email=$1),
+         $2,
+         $3,
+         $4,
+         $5
+         )`,
+         [email, post_id, thread_id +1, body, Date.now()]
+      );
+      return 'Much Success, Very Nice';
+    } catch(err) {
+      console.log(err);
+      return err;
+    }
+  },
+  // comments: async ({ post_id, thread_id, email, body }) => {
   //   try {
-  //     let result = await db.none(`INSERT INTO comments (post_id, donor_id, recipient_id, body)`, [post_id, </donor_id> , </recipient_id>, username, body, Date.now()]);
-  //     return ('Successful Post'); // or just return
+  //     if ( !thread_id ) thread_id = `(SELECT MAX(thread_id) FROM comments)+1`
+  //     let result = await db.none(
+  //       `INSERT INTO comments
+  //        (id, userName, post_id, thread_id, body, date)
+  //        VALUES
+  //        ((SELECT MAX(id) FROM comments) +1,
+  //        (SELECT username FROM profile WHERE email=$1),
+  //        $2,
+  //        $3,
+  //        $4,
+  //        $5,
+  //        )`,
+  //        [email, post_id, thread_id, body, Date.now()]
+  //     );
+  //     return ('Much Success, Very Nice');
   //   } catch(err) {
   //     console.log(err);
   //     return err;
   //   }
-  // }
+  // },
 }
