@@ -55,7 +55,12 @@ module.exports = {
   },
   comments: async ({ post_id, thread_id, email, body }) => {
     try {
-      if ( !thread_id ) thread_id = await db.query(`SELECT MAX(thread_id) FROM comments`);
+      if ( !thread_id ) {
+        debugger;
+        [{ max }] = await db.query(`SELECT MAX(thread_id) FROM comments`);
+        thread_id = parseInt(max);
+        thread_id += 1;
+      }
       let result = await db.none(
         `INSERT INTO comments
          (userName, post_id, thread_id, body, date)
@@ -66,7 +71,7 @@ module.exports = {
          $4,
          $5
          )`,
-         [email, post_id, thread_id +1, body, Date.now()]
+         [email, post_id, parseInt(thread_id), body, Date.now()]
       );
       return 'Much Success, Very Nice';
     } catch(err) {
