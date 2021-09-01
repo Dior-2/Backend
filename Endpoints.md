@@ -104,7 +104,7 @@ post_id mandatory
 if no thread_id is passed, comment is assumed to be on original post, and one will be assigned
 
 ---
-POST api/listings/requests/comment
+POST api/listings/requests/comments
 ```
 {
   post_id

@@ -53,4 +53,52 @@ module.exports = {
       return err;
     }
   },
+  comments: async ({ post_id, thread_id, email, body }) => {
+    try {
+      if ( !thread_id ) {
+        debugger;
+        [{ max }] = await db.query(`SELECT MAX(thread_id) FROM comments`);
+        thread_id = parseInt(max);
+        thread_id += 1;
+      }
+      let result = await db.none(
+        `INSERT INTO comments
+         (userName, post_id, thread_id, body, date)
+         VALUES
+         ((SELECT username FROM profile WHERE email=$1),
+         $2,
+         $3,
+         $4,
+         $5
+         )`,
+         [email, post_id, parseInt(thread_id), body, Date.now()]
+      );
+      return 'Much Success, Very Nice';
+    } catch(err) {
+      console.log(err);
+      return err;
+    }
+  },
+  // comments: async ({ post_id, thread_id, email, body }) => {
+  //   try {
+  //     if ( !thread_id ) thread_id = `(SELECT MAX(thread_id) FROM comments)+1`
+  //     let result = await db.none(
+  //       `INSERT INTO comments
+  //        (id, userName, post_id, thread_id, body, date)
+  //        VALUES
+  //        ((SELECT MAX(id) FROM comments) +1,
+  //        (SELECT username FROM profile WHERE email=$1),
+  //        $2,
+  //        $3,
+  //        $4,
+  //        $5,
+  //        )`,
+  //        [email, post_id, thread_id, body, Date.now()]
+  //     );
+  //     return ('Much Success, Very Nice');
+  //   } catch(err) {
+  //     console.log(err);
+  //     return err;
+  //   }
+  // },
 }
