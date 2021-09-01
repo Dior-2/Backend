@@ -120,14 +120,22 @@ module.exports = {
       return err;
     }
   },
-  // comments: async({ post_id, thread_id }) => {
+  check: async({ email }) => {
+    try {
+      let [{ count }] = await db.query(`SELECT COUNT(id) FROM profile WHERE email=$1`, [email]);
+      return count;
+    } catch(err) {
+      console.log(err);
+      return err;
+    }
+  }
+  // <TEMPLATE>: async (req, res) => {
   //   try {
-  //     let results = await db.query(`SELECT json_agg(threads) FROM (
-  //       SELECT username, body, post_id, thread_id FROM comments WHERE post_id=$1 ORDER BY date) AS threads GROUP BY thread_id`, [post_id, thread_id]);
-  //     return results;
+  //     let data = await get.<TEMPLATE>(req.query);
+  //     res.status(200).json(data);
   //   } catch(err) {
   //     console.log(err);
-  //     return err;
+  //     res.status(400).send(err);
   //   }
   // },
 }

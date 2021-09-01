@@ -14,4 +14,6 @@ router.put('/profile', controller.put.profile);
 router.get('/comments', controller.get.comments);
 router.post('/comments', controller.post.comments);
 
+router.get('/check', controller.get.check);
+
 module.exports = router;

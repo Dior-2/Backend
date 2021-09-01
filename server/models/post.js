@@ -78,26 +78,13 @@ module.exports = {
       return err;
     }
   },
-  // comments: async ({ post_id, thread_id, email, body }) => {
+  // <TEMPLATE>: async (req, res) => {
   //   try {
-  //     if ( !thread_id ) thread_id = `(SELECT MAX(thread_id) FROM comments)+1`
-  //     let result = await db.none(
-  //       `INSERT INTO comments
-  //        (id, userName, post_id, thread_id, body, date)
-  //        VALUES
-  //        ((SELECT MAX(id) FROM comments) +1,
-  //        (SELECT username FROM profile WHERE email=$1),
-  //        $2,
-  //        $3,
-  //        $4,
-  //        $5,
-  //        )`,
-  //        [email, post_id, thread_id, body, Date.now()]
-  //     );
-  //     return ('Much Success, Very Nice');
+  //     let data = await get.<TEMPLATE>(req.body);
+  //     res.status(200).json(data);
   //   } catch(err) {
   //     console.log(err);
-  //     return err;
+  //     res.status(400).send(err);
   //   }
   // },
 }
