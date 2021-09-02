@@ -31,6 +31,7 @@ module.exports = {
   },
   comments: async({ post_id, thread_id }) => {
     try {
+<<<<<<< HEAD
       let data = await db.query(
         `SELECT json_agg(threads)
           FROM (SELECT username, body, post_id, thread_id, date
@@ -39,6 +40,21 @@ module.exports = {
           AS threads
           GROUP BY thread_id`,
         [post_id, thread_id]);
+=======
+      let data = await db.query(`
+      SELECT json_agg(threads) FROM (
+        SELECT
+          username,
+          body,
+          post_id,
+          thread_id,
+          date AS timestamp
+        FROM comments
+        WHERE post_id=$1
+        ORDER BY timestamp)
+      AS threads
+      GROUP BY thread_id`, [post_id, thread_id]);
+>>>>>>> main
       let results = [];
       for (var i = 0; i < data.length; i++) {
         results.push(data[i].json_agg);
