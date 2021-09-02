@@ -1,11 +1,20 @@
 const db = require('../../database');
-const { photoDefault } = require('./helpers.js');
+const { photoDefault, postListing } = require('./helpers.js');
 
 module.exports = {
-  requests: async({ email, title, body, category }) => {
+  requests: async({ email, category, title, body }) => {
     try {
-      let result = await db.none(`INSERT INTO posts(id, user_id, requestType, category, title, body, date) VALUES ((SELECT MAX(id) FROM posts) + 1, (SELECT id FROM profile WHERE email=$1), 0, $2, $3, $4, $5)`, [email, category, title, body, Date.now()]); // need to handle auto-increment id issue
+      let results = postListing([email, 0, category, title, body, Date.now(), photoDefault(category)]);
       return 'Post Successful';
+    } catch(err) {
+      console.log(err);
+      return err;
+    }
+  },
+  offers: async ({ email, category, title, body }) => {
+    try {
+      let result = postListing([email, 1, category, title, body, Date.now(), photoDefault(category)])
+      return 'Post Successful!';
     } catch(err) {
       console.log(err);
       return err;
@@ -15,34 +24,6 @@ module.exports = {
     try {
       let result = await db.none(`INSERT INTO profile(id, firebase_id, firstName, lastName, userName, email, mobile, preferredContact, city, state, zip, address1, address2, role, organization) VALUES ((SELECT MAX(id) FROM profile) + 1, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`, [firebase_id, firstname, lastname, username, email, mobile, preferredcontact, city, state, zip, address1, address2, role, organization]);
       return 'Post Successful';
-    } catch(err) {
-      console.log(err);
-      return err;
-    }
-  },
-
-  offers: async ({email, title, body, category}) => {
-    let photo = photoDefault(category);
-    try {
-      let result = await db.none(
-        `INSERT INTO posts (
-            id,
-            user_id,
-            requestType,
-            category,
-            title,
-            body,
-            date,
-            photo
-            )
-          VALUES (
-            (SELECT MAX(id)FROM posts)+ 1,
-            (SELECT id FROM profile WHERE email=$1),
-            1, $2, $3, $4, $5, $6
-          )`,
-            [email, category, title, body, Date.now(), photo]
-          );
-      return 'Much Success on Post!';
     } catch(err) {
       console.log(err);
       return err;
