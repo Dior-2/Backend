@@ -144,6 +144,8 @@ module.exports = {
             FROM posts AS p
             INNER JOIN profile
             ON profile.id = p.user_id
+            CASE
+              WHEN post_id
             WHERE p.category =$1
             AND p.requestType = 0
             ORDER BY p.date
@@ -161,11 +163,11 @@ module.exports = {
     try {
       let data = await db.query(
         `SELECT json_agg(threads)
-        FROM (SELECT username, body, post_id, thread_id, date
-        FROM comments
-        WHERE post_id=$1 ORDER BY date DESC)
-        AS threads
-        GROUP BY thread_id`,
+          FROM (SELECT username, body, post_id, thread_id, date
+          FROM comments
+          WHERE post_id=$1 ORDER BY date DESC)
+          AS threads
+          GROUP BY thread_id`,
         [post_id, thread_id]);
       let results = [];
       for (var i = 0; i < data.length; i++) {
@@ -195,4 +197,8 @@ module.exports = {
   //     res.status(400).send(err);
   //   }
   // },
+}
+
+const foo = ([ post_id, category, limit] => {
+
 }
