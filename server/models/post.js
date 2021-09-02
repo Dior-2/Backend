@@ -21,7 +21,7 @@ module.exports = {
     }
   },
 
-  offers: async ({email, title, body, category}) => {
+  offers: async ({email, category, title, body}) => {
     let photo = photoDefault(category);
     try {
       let result = await db.none(
