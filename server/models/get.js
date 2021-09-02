@@ -34,6 +34,7 @@ module.exports = {
           p.body,
           p.date AS timestamp,
           p.category,
+	  p.photo,
           profile.username
           FROM posts AS p
           INNER JOIN profile
