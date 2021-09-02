@@ -82,7 +82,7 @@ POST api/listings/offers
 
 ### REQUESTS: GET AND POST
 
-GET api/listings/requests/:limit/:category
+GET api/listings/requests/:limit/:category/:post_id
 ```
 [{
   id
@@ -95,7 +95,7 @@ GET api/listings/requests/:limit/:category
 ```
 sorted by most recent
 
-limit and category optional
+limit, category, and post_id optional
 
 ---
 
