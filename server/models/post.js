@@ -1,4 +1,5 @@
 const db = require('../../database');
+const { photoDefault } = require('./helpers.js');
 
 module.exports = {
   requests: async({ email, title, body, category }) => {
@@ -21,35 +22,29 @@ module.exports = {
   },
 
   offers: async ({email, title, body, category}) => {
+    let photo = photoDefault(category);
     try {
       let result = await db.none(
-        `INSERT INTO
-        posts (
-          id,
-          user_id,
-          requestType,
-          category,
-          title,
-          body,
-          date
-          )
+        `INSERT INTO posts (
+            id,
+            user_id,
+            requestType,
+            category,
+            title,
+            body,
+            date,
+            photo
+            )
           VALUES (
-          (SELECT MAX(id)
-          FROM posts)
-          + 1,
-          (SELECT
-          id
-          FROM
-          profile
-          WHERE
-          email=$1
-          ),
-          1, $2, $3, $4, $5
+            (SELECT MAX(id)FROM posts)+ 1,
+            (SELECT id FROM profile WHERE email=$1),
+            1, $2, $3, $4, $5, $6
           )`,
-            [email, title, body, category, Date.now()]
+            [email, category, title, body, Date.now(), photo]
           );
       return 'Much Success on Post!';
     } catch(err) {
+      console.log(err);
       return err;
     }
   },
