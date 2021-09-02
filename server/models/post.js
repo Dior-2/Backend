@@ -21,7 +21,7 @@ module.exports = {
     }
   },
   profile: async({ firebase_id, firstname, lastname, username, email, homephone, mobile, preferredcontact, city, state, zip, address1, address2, role, organization }) => {
-    try {
+     try {
       let result = await db.none(
         `INSERT INTO profile(
           id,
