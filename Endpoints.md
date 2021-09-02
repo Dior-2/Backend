@@ -39,6 +39,19 @@ server side key-value pairs deconstruct under req.body
 ---
 ### OFFERS: GET AND POST
 
+GET api/listings/offers/:post_id
+```
+[{
+  id
+  title
+  body
+  username
+  timestamp
+  category
+  photo
+}]
+```
+---
 GET api/listings/offers/:limit/:category
 ```
 [{
