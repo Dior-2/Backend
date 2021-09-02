@@ -52,7 +52,7 @@ GET api/listings/offers/:post_id
 }]
 ```
 ---
-GET api/listings/offers/:limit/:category
+GET api/listings/offers/:limit/:category/:post_id
 ```
 [{
   id
@@ -66,7 +66,7 @@ GET api/listings/offers/:limit/:category
 ```
 sorted by most recent
 
-limit and category optional
+limit, category and post_id optional
 
 ---
 POST api/listings/offers
