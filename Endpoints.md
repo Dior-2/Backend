@@ -48,6 +48,7 @@ GET api/listings/offers/:limit/:category
   username
   timestamp
   category
+  photo
 }];
 ```
 sorted by most recent
@@ -170,9 +171,7 @@ PUT api/profile
  ---
 ### CHECK
 
-GET /api/check
+GET /api/check/:email
 ```
-{
-  count?
-}
+"0" or "1", like I'm actually confused why it doesn't have an object?
 ```
