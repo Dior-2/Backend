@@ -35,7 +35,6 @@ module.exports = {
   },
   getListing: async (args) => {
     try {
-      debugger;
       let result = await db.query(
         `SELECT
           p.id,
@@ -48,31 +47,19 @@ module.exports = {
         FROM posts AS p
         INNER JOIN profile
         ON profile.id = p.user_id
-        WHERE p.requestType=$1 AND
+        WHERE
         (CASE
-          WHEN $2 IS NOT NULL THEN p.id=$2
-          ELSE p.category=$3
+          WHEN $2 IS NOT NULL THEN p.requestType=$1 AND p.id=$2
+          WHEN $3 IS NOT NULL THEN p.requestType=$1 AND p.category=$3
+          ELSE p.requestType=$1
           END)
-        ORDER BY p.date
+        ORDER BY p.date DESC
         LIMIT $4
         `, [...args]);
         return result;
-      } catch(err) {
-        console.log(err);
-        return err;
-      }
+    } catch(err) {
+      console.log(err);
+      return err;
     }
-  }
-
-  /*
-  (CASE
-    WHEN $2 > 0 THEN p.id=$2
-    ELSE p.category=$3
-    END)
-  ORDER BY p.date
-  LIMIT $4
-if post_id is present, overrides everything
-  if post_id does not match requestType, say so
-if post_id is not present, check category
-if neither is present, return all listings
-*/
+  },
+}
