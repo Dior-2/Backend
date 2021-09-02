@@ -1,78 +1,14 @@
 const db = require('../../database');
+const { getListing } = require('./helpers');
 
 module.exports = {
-  offers: async ({ limit=25, category, post_id }) => {
-    if ( post_id ) {
-      try {
-        let results = await db.query(
-          `SELECT
-            p.id,
-            p.title,
-            p.body,
-            p.date AS timestamp,
-            p.category,
-            p.photo,
-            profile.username
-          FROM posts AS p
-          INNER JOIN profile
-          ON profile.id = p.user_id
-          WHERE p.id=$1
-          AND p.requestType = 1
-          ORDER BY p.date
-          `, [post_id]);
-        return results
-      } catch(err) {
-        console.log(err);
-        return err;
-      }
-    } else {
-      if (!category) {
-        try {
-          let results = await db.query(
-            `SELECT
-              p.id,
-              p.title,
-              p.body,
-              p.date AS timestamp,
-              p.category,
-              p.photo,
-              profile.username
-            FROM posts AS p
-            INNER JOIN profile
-            ON profile.id = p.user_id
-            WHERE p.requestType=1
-            ORDER BY p.date
-            LIMIT $1
-            `, [limit]);
-          return results
-        } catch(err) {
-          console.log(err);
-          return err;
-        }
-      } else {
-        try {
-          let results = await db.query(
-            `SELECT
-            p.id,
-            p.title,
-            p.body,
-            p.date AS timestamp,
-            p.category,
-            profile.username
-            FROM posts AS p
-            INNER JOIN profile
-            ON profile.id = p.user_id
-            WHERE p.category =$1
-            AND p.requestType = 1
-            ORDER BY p.date
-            LIMIT $2
-            `, [category, limit]);
-            return results;
-        } catch(err) {
-            console.log(err);
-            return err;
-        }
-      }
+  offers: async ({ post_id, category, limit=10 }) => {
+    try {
+      let result = await getListing([1, post_id, category, limit]);
+      return result;
+    } catch(err) {
+      console.log(err);
+      return err;
     }
   },
   profile: async ({ email }) => {

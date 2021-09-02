@@ -4,7 +4,6 @@ const { photoDefault, postListing } = require('./helpers.js');
 module.exports = {
   requests: async({ email, category, title, body }) => {
     try {
-      // debugger;
       let results = postListing([email, 0, category, title, body, Date.now(), photoDefault(category)]);
       return 'Post Successful';
     } catch(err) {
