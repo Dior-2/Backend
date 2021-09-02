@@ -1,8 +1,8 @@
 const db = require('../../database');
 
 module.exports = {
-  offers: async ({ limit=25, category }) => {
-    if (!category) {
+  offers: async ({ limit=25, category, post_id }) => {
+    if ( post_id ) {
       try {
         let results = await db.query(
           `SELECT
@@ -16,38 +16,62 @@ module.exports = {
           FROM posts AS p
           INNER JOIN profile
           ON profile.id = p.user_id
-          WHERE p.requestType=1
+          WHERE p.id=$1
+          AND p.requestType = 1
           ORDER BY p.date
-          LIMIT $1
-          `, [limit]);
+          `, [post_id]);
         return results
       } catch(err) {
         console.log(err);
         return err;
       }
     } else {
-      try {
-        let results = await db.query(
-          `SELECT
-          p.id,
-          p.title,
-          p.body,
-          p.date AS timestamp,
-          p.category,
-	  p.photo,
-          profile.username
-          FROM posts AS p
-          INNER JOIN profile
-          ON profile.id = p.user_id
-          WHERE p.category =$1
-          AND p.requestType = 1
-          ORDER BY p.date
-          LIMIT $2
-          `, [category, limit]);
-          return results;
-      } catch(err) {
+      if (!category) {
+        try {
+          let results = await db.query(
+            `SELECT
+              p.id,
+              p.title,
+              p.body,
+              p.date AS timestamp,
+              p.category,
+              p.photo,
+              profile.username
+            FROM posts AS p
+            INNER JOIN profile
+            ON profile.id = p.user_id
+            WHERE p.requestType=1
+            ORDER BY p.date
+            LIMIT $1
+            `, [limit]);
+          return results
+        } catch(err) {
           console.log(err);
           return err;
+        }
+      } else {
+        try {
+          let results = await db.query(
+            `SELECT
+            p.id,
+            p.title,
+            p.body,
+            p.date AS timestamp,
+            p.category,
+            profile.username
+            FROM posts AS p
+            INNER JOIN profile
+            ON profile.id = p.user_id
+            WHERE p.category =$1
+            AND p.requestType = 1
+            ORDER BY p.date
+            LIMIT $2
+            `, [category, limit]);
+            return results;
+        } catch(err) {
+            console.log(err);
+            return err;
+        }
       }
     }
   },
@@ -60,8 +84,8 @@ module.exports = {
       return err;
     }
   },
-  requests: async ({limit, category}) => {
-    if (!category) {
+  requests: async ({limit, category, post_id}) => {
+    if ( post_id ) {
       try {
         let results = await db.query(
           `SELECT
@@ -70,41 +94,66 @@ module.exports = {
             p.body,
             p.date AS timestamp,
             p.category,
+            p.photo,
             profile.username
           FROM posts AS p
           INNER JOIN profile
           ON profile.id = p.user_id
-          WHERE p.requestType=0
+          WHERE p.id=$1
+          AND p.requestType = 0
           ORDER BY p.date
-          LIMIT $1
-          `, [limit]);
+          `, [post_id]);
         return results
       } catch(err) {
         console.log(err);
         return err;
       }
     } else {
-      try {
-        let results = await db.query(
-          `SELECT
-          p.id,
-          p.title,
-          p.body,
-          p.date AS timestamp,
-          p.category,
-          profile.username
-          FROM posts AS p
-          INNER JOIN profile
-          ON profile.id = p.user_id
-          WHERE p.category =$1
-          AND p.requestType = 0
-          ORDER BY p.date
-          LIMIT $2
-          `, [category, limit]);
-          return results;
-      } catch(err) {
+      if (!category) {
+        try {
+          let results = await db.query(
+            `SELECT
+              p.id,
+              p.title,
+              p.body,
+              p.date AS timestamp,
+              p.category,
+              profile.username
+            FROM posts AS p
+            INNER JOIN profile
+            ON profile.id = p.user_id
+            WHERE p.requestType=0
+            ORDER BY p.date
+            LIMIT $1
+            `, [limit]);
+          return results
+        } catch(err) {
           console.log(err);
           return err;
+        }
+      } else {
+        try {
+          let results = await db.query(
+            `SELECT
+            p.id,
+            p.title,
+            p.body,
+            p.date AS timestamp,
+            p.category,
+            profile.username
+            FROM posts AS p
+            INNER JOIN profile
+            ON profile.id = p.user_id
+            WHERE p.category =$1
+            AND p.requestType = 0
+            ORDER BY p.date
+            LIMIT $2
+            `, [category, limit]);
+            return results;
+        } catch(err) {
+            console.log(err);
+            return err;
+        }
       }
     }
   },
