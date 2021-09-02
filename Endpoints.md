@@ -20,7 +20,6 @@ server side key-value pairs deconstruct under req.query
 POST
 ```
 axios.post('/endpoint', {
-  data: {
     key: value,
     key: value
   }
