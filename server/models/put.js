@@ -27,6 +27,7 @@ module.exports = {
       return err;
     }
   },
+}
   // <TEMPLATE>: async (req, res) => {
   //   try {
   //     let data = await get.<TEMPLATE>(req.query);
@@ -35,5 +36,4 @@ module.exports = {
   //     console.log(err);
   //     res.status(400).send(err);
   //   }
-  // },
-}
+  // }
