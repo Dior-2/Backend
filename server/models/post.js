@@ -22,7 +22,26 @@ module.exports = {
   },
   profile: async({ firebase_id, firstname, lastname, username, email, homephone, mobile, preferredcontact, city, state, zip, address1, address2, role, organization }) => {
     try {
-      let result = await db.none(`INSERT INTO profile(id, firebase_id, firstName, lastName, userName, email, mobile, preferredContact, city, state, zip, address1, address2, role, organization) VALUES ((SELECT MAX(id) FROM profile) + 1, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`, [firebase_id, firstname, lastname, username, email, mobile, preferredcontact, city, state, zip, address1, address2, role, organization]);
+      let result = await db.none(
+        `INSERT INTO profile(
+          id,
+          firebase_id,
+          firstName,
+          lastName,
+          userName,
+          email,
+          mobile,
+          preferredContact,
+          city, state,
+          zip,
+          address1,
+          address2,
+          role,
+          organization)
+        VALUES (
+          (SELECT MAX(id) FROM profile) + 1,
+          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14
+          )`, [firebase_id, firstname, lastname, username, email, mobile, preferredcontact, city, state, zip, address1, address2, role, organization]);
       return 'Post Successful';
     } catch(err) {
       console.log(err);
@@ -41,12 +60,8 @@ module.exports = {
          (userName, post_id, thread_id, body, date)
          VALUES
          ((SELECT username FROM profile WHERE email=$1),
-         $2,
-         $3,
-         $4,
-         $5
-         )`,
-         [email, post_id, parseInt(thread_id), body, parseInt(Date.now())]
+         $2, $3, $4,$5
+         )`, [email, post_id, parseInt(thread_id), body, parseInt(Date.now())]
       );
       return 'Much Success, Very Nice';
     } catch(err) {
