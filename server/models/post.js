@@ -46,7 +46,7 @@ module.exports = {
           ),
           1, $2, $3, $4, $5
           )`,
-            [email, title, body, category, Date.now()]
+            [email, category, title, body, Date.now()]
           );
       return 'Much Success on Post!';
     } catch(err) {
