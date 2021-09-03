@@ -124,7 +124,7 @@ grouped by thread_id
 post_id mandatory
 
 ---
-POST api/listings/requests/comments
+POST api/comments
 ```
 {
   post_id
