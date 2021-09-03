@@ -11,7 +11,7 @@ module.exports = {
       return err;
     }
   },
-  offers: async ({ post_id, category, limit=10 }) => {
+  offers: async ({ post_id, category, limit }) => {
     try {
       let result = await getListing([1, post_id, category, limit]);
       return result;
