@@ -57,9 +57,10 @@ module.exports = {
       }
       let result = await db.none(
         `INSERT INTO comments
-         (userName, post_id, thread_id, body, date)
+         (id, userName, post_id, thread_id, body, date)
          VALUES
-         ((SELECT username FROM profile WHERE email=$1),
+         ((SELECT MAX(id) FROM comments) + 1,
+	 (SELECT username FROM profile WHERE email=$1),
          $2, $3, $4,$5
          )`, [email, post_id, parseInt(thread_id), body, parseInt(Date.now())]
       );
